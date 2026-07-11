@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyDen — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+    <div class="bg-blur blur-1"></div>
+    <div class="bg-blur blur-2"></div>
+
+    <main id="app-card">
+        <header class="db-header">
+            <div class="header-left">
+                <h2>Study Workspace</h2>
+                <p id="workspace-status">Loading workspace parameters...</p>
+            </div>
+            
+            <div class="header-controls">
+                <button id="theme-toggle" class="control-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                    <span id="theme-icon">🌙</span>
+                </button>
+                <button class="control-btn exit" onclick="goToSetup()" aria-label="Exit Workspace">← Leave</button>
+            </div>
+        </header>
+
+        <div class="modes-grid">
+            <button class="mode-btn flashcard" onclick="routeToChapters('flashcard')">
+                <div class="btn-icon-wrapper">📇</div>
+                <span class="btn-title">Flashcards</span>
+                <span class="btn-desc">Active recall & confidence sorting loops.</span>
+            </button>
+
+            <button class="mode-btn test" onclick="routeToChapters('test')">
+                <div class="btn-icon-wrapper">📝</div>
+                <span class="btn-title">Test Engine</span>
+                <span class="btn-desc">Exam pattern simulations with review tools.</span>
+            </button>
+
+            <button class="mode-btn study" onclick="routeToChapters('study')">
+                <div class="btn-icon-wrapper">📖</div>
+                <span class="btn-title">Study Room</span>
+                <span class="btn-desc">High-yield notes paired with structural AI tutoring.</span>
+            </button>
+        </div>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
