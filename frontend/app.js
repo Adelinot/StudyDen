@@ -37,9 +37,9 @@ function renderSubjectScreen() {
         <h2>Select Focus Track</h2>
         <p>Class ${onboardingData.class} Standard Stream</p>
         <div class="btn-container">
-            <button class="option-btn" onclick="selectSubject('Physics')">⚛️ Physics Department</button>
-            <button class="option-btn" onclick="selectSubject('Chemistry')">🧪 Chemical Sciences</button>
-            <button class="option-btn" onclick="selectSubject('Mathematics')">📐 Pure Mathematics</button>
+            <button class="option-btn" onclick="selectSubject('Physics')">⚛️Physics</button>
+            <button class="option-btn" onclick="selectSubject('Chemistry')">🧪Chemistry</button>
+            <button class="option-btn" onclick="selectSubject('Mathematics')">📐Mathematics</button>
         </div>
         <button class="back-btn" onclick="renderClassScreen()">← Modify Class Target</button>
     `;
@@ -82,7 +82,7 @@ function commitAndRedirect() {
     localStorage.setItem("userSubject", onboardingData.subject);
     
     // 2. Teleport location pathway out of onboarding hub root file straight into dashboard page root file
-    window.location.href = "dashboard.html";
+    window.location.href = "dashboard/dashboard.html";
 }
 
 // Initializing onboarding boot execution sequence
