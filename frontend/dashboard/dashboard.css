@@ -1,0 +1,238 @@
+/* ==========================================================================
+   DESIGN VARIABLES & SYSTEM SYSTEM STATES (DARK / LIGHT THEMES)
+   ========================================================================== */
+:root[data-theme="dark"] {
+    --bg-main: #0b0f19;
+    --text-main: #f8fafc;
+    --text-muted: #64748b;
+    
+    --card-bg: rgba(15, 23, 42, 0.45);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-shadow: rgba(0, 0, 0, 0.5);
+    
+    --btn-bg: rgba(255, 255, 255, 0.02);
+    --btn-border: rgba(255, 255, 255, 0.05);
+    --btn-icon-bg: rgba(255, 255, 255, 0.03);
+    
+    --blur-1-color: #4f46e5;
+    --blur-2-color: #0ea5e9;
+    
+    --hover-flashcard: #312e81;
+    --hover-test: #0c4a6e;
+    --hover-study: #064e3b;
+}
+
+:root[data-theme="light"] {
+    --bg-main: #f8fafc;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    
+    --card-bg: rgba(255, 255, 255, 0.75);
+    --card-border: rgba(15, 23, 42, 0.08);
+    --card-shadow: rgba(15, 23, 42, 0.06);
+    
+    --btn-bg: rgba(15, 23, 42, 0.02);
+    --btn-border: rgba(15, 23, 42, 0.06);
+    --btn-icon-bg: rgba(15, 23, 42, 0.03);
+    
+    --blur-1-color: #c7d2fe;
+    --blur-2-color: #bae6fd;
+    
+    --hover-flashcard: #e0e7ff;
+    --hover-test: #e0f2fe;
+    --hover-study: #d1fae5;
+}
+
+/* ==========================================================================
+   FOUNDATIONAL STRUCTURAL RESET
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    /* Smooth variable crossfades during theme shifts */
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* ==========================================================================
+   AMBIENT SOFT GRAPHICS (NO NEON)
+   ========================================================================== */
+.bg-blur {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+    transition: background-color 0.4s ease;
+}
+.blur-1 { top: -20%; left: -10%; width: 500px; height: 500px; background-color: var(--blur-1-color); }
+.blur-2 { bottom: -20%; right: -10%; width: 500px; height: 500px; background-color: var(--blur-2-color); }
+
+/* ==========================================================================
+   THE CENTRAL DASHBOARD CONTAINER
+   ========================================================================== */
+#app-card {
+    position: relative;
+    z-index: 10;
+    background: var(--card-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--card-border);
+    border-radius: 28px;
+    padding: 44px 40px;
+    width: 90%;
+    max-width: 720px;
+    box-shadow: 0 24px 60px var(--card-shadow);
+    transition: background 0.4s ease, border 0.4s ease, box-shadow 0.4s ease;
+}
+
+.db-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    gap: 20px;
+}
+
+.header-left {
+    text-align: left;
+}
+
+h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+}
+
+#workspace-status {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ==========================================================================
+   MINIMAL UTILITY HEADER CONTROL UTILITIES
+   ========================================================================== */
+.control-btn {
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    color: var(--text-main);
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    background: var(--card-border);
+    transform: translateY(-1px);
+}
+
+#theme-toggle {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   THE 3 WORKSPACE MODE BUTTONS (AESTHETIC & BALANCED)
+   ========================================================================== */
+.modes-grid {
+    display: flex;
+    gap: 16px;
+}
+
+.mode-btn {
+    flex: 1;
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 20px;
+    padding: 36px 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* Lively non-neon cubic spring transition */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25), 
+                background-color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
+}
+
+.btn-icon-wrapper {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    background: var(--btn-icon-bg);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.btn-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.btn-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+/* Hover Adjustments: Clean, muted pastel backgrounds + soft dimensional shifts */
+.mode-btn:hover {
+    transform: translateY(-8px);
+    border-color: transparent;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.mode-btn:hover .btn-icon-wrapper {
+    transform: scale(1.1) rotate(4deg);
+}
+
+/* Subdued organic colors for theme variants */
+.flashcard:hover { background-color: var(--hover-flashcard); }
+.test:hover { background-color: var(--hover-test); }
+.study:hover { background-color: var(--hover-study); }
+
+/* Ensure text changes to clean dark color in light mode hover states */
+:root[data-theme="light"] .mode-btn:hover .btn-title { color: #0f172a; }
+:root[data-theme="light"] .mode-btn:hover .btn-desc { color: #475569; }
+
+.mode-btn:active {
+    transform: translateY(-2px);
+}
