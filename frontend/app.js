@@ -1,167 +1,89 @@
-// Reference point for content rendering
+// Reference node context container
 const contentArea = document.getElementById("dynamic-content");
 
-// Global configuration state
-let sessionSetup = {
+// Temporary runtime onboarding collection state
+let onboardingData = {
     class: null,
     subject: null
 };
 
 /**
- * SCREEN 1: Class Selection Setup
+ * PHASE 1: Render Class Configuration Screen
  */
 function renderClassScreen() {
     contentArea.innerHTML = `
         <h2>Welcome to StudyDen</h2>
-        <p>Set up your workspace to lock in your focus</p>
+        <p>Configure your workspace parameters to focus</p>
         <div class="btn-container">
-            <button class="option-btn" onclick="handleClassSelect(8)">Class 8</button>
-            <button class="option-btn" onclick="handleClassSelect(9)">Class 9</button>
-            <button class="option-btn" onclick="handleClassSelect(10)">Class 10</button>
-            <button class="option-btn" onclick="handleClassSelect(11)">Class 11</button>
-            <button class="option-btn" onclick="handleClassSelect(12)">Class 12</button>
+            <button class="option-btn" onclick="selectClass(8)">Class 8 Syllabus</button>
+            <button class="option-btn" onclick="selectClass(9)">Class 9 Syllabus</button>
+            <button class="option-btn" onclick="selectClass(10)">Class 10 Syllabus</button>
+            <button class="option-btn" onclick="selectClass(11)">Class 11 Syllabus</button>
+            <button class="option-btn" onclick="selectClass(12)">Class 12 Syllabus</button>
         </div>
     `;
 }
 
-function handleClassSelect(selectedClass) {
-    sessionSetup.class = selectedClass;
+function selectClass(classNumber) {
+    onboardingData.class = classNumber;
     renderSubjectScreen();
 }
 
 /**
- * SCREEN 2: Subject Selection Setup
+ * PHASE 2: Render Subject Choice Screen
  */
 function renderSubjectScreen() {
     contentArea.innerHTML = `
-        <h2>Select Your Focus</h2>
-        <p>Class ${sessionSetup.class} Curriculum</p>
+        <h2>Select Focus Track</h2>
+        <p>Class ${onboardingData.class} Standard Stream</p>
         <div class="btn-container">
-            <button class="option-btn" onclick="handleSubjectSelect('Physics')">⚛️ Physics</button>
-            <button class="option-btn" onclick="handleSubjectSelect('Chemistry')">🧪 Chemistry</button>
-            <button class="option-btn" onclick="handleSubjectSelect('Mathematics')">📐 Mathematics</button>
+            <button class="option-btn" onclick="selectSubject('Physics')">⚛️ Physics Department</button>
+            <button class="option-btn" onclick="selectSubject('Chemistry')">🧪 Chemical Sciences</button>
+            <button class="option-btn" onclick="selectSubject('Mathematics')">📐 Pure Mathematics</button>
         </div>
-        <button class="back-btn" onclick="renderClassScreen()">← Back to Classes</button>
+        <button class="back-btn" onclick="renderClassScreen()">← Modify Class Target</button>
     `;
 }
 
-function handleSubjectSelect(selectedSubject) {
-    sessionSetup.subject = selectedSubject;
-    renderStartScreen();
+function selectSubject(subjectName) {
+    onboardingData.subject = subjectName;
+    renderLaunchScreen();
 }
 
 /**
- * SCREEN 3: The Launchpad (Featuring the premium 3D glowing button)
+ * PHASE 3: Launch Gatekeeper (Includes 3D interactive sheen launch trigger)
  */
-function renderStartScreen() {
+function renderLaunchScreen() {
     contentArea.innerHTML = `
-        <h2>Your Den is Ready</h2>
-        <p>Everything is configured for optimal focus</p>
+        <h2>Den Configuration Saved</h2>
+        <p>Click below to open your localized workspace dashboard</p>
         
-        <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 14px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.04)">
-            <span style="color: #64748b; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">Target Track</span>
-            <span style="color: #3b82f6; font-weight: 700; font-size: 1.25rem;">Class ${sessionSetup.class} — ${sessionSetup.subject}</span>
+        <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid rgba(255,255,255,0.04); padding: 22px; border-radius: 16px; margin-bottom: 28px; text-align: left;">
+            <span style="display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: #475569; font-weight: 700; margin-bottom: 4px;">Target Profile</span>
+            <span style="font-size: 1.2rem; font-weight: 800; color: #3b82f6;">Class ${onboardingData.class} — ${onboardingData.subject}</span>
         </div>
 
-        <button class="btn-3d-wrapper" onclick="launchStudySession()">
-            <span class="btn-3d-front">ENTER STUDY DEN</span>
+        <button class="btn-3d-wrapper" onclick="commitAndRedirect()">
+            <span class="btn-3d-front">LAUNCH STUDY DEN</span>
         </button>
         
         <br>
-        <button class="back-btn" onclick="renderSubjectScreen()">Modify Configuration</button>
+        <button class="back-btn" onclick="renderSubjectScreen()">← Modify Subject Track</button>
     `;
 }
 
 /**
- * ACTION: Core Launch Engine
- */// Syllabus Database Map for StudyDen
-const syllabusData = {
-    "Physics": [
-        { num: "01", name: "Light: Reflection & Refraction" },
-        { num: "02", name: "Human Eye & Colorful World" },
-        { num: "03", name: "Electricity Management" },
-        { num: "04", name: "Magnetic Effects of Current" }
-    ],
-    "Chemistry": [
-        { num: "01", name: "Chemical Reactions & Equations" },
-        { num: "02", name: "Acids, Bases and Salts" },
-        { num: "03", name: "Metals and Non-metals" },
-        { num: "04", name: "Carbon and its Compounds" }
-    ],
-    "Mathematics": [
-        { num: "01", name: "Real Numbers & Polynomials" },
-        { num: "02", name: "Pair of Linear Equations" },
-        { num: "03", name: "Quadratic Equations" },
-        { num: "04", name: "Arithmetic Progressions" },
-        { num: "05", name: "Trigonometric Foundations" }
-    ]
-};
-
-/**
- * ACTION: Core Launch Engine
- * Transforms the onboarding window cleanly into the full operational dashboard
+ * CORE TELEPORTATION COMPILER
+ * Serializes profile targets to localStorage and bridges architecture forward to the dashboard root layout
  */
-function launchStudySession() {
-    const appCard = document.getElementById("app-card");
+function commitAndRedirect() {
+    // 1. Permanently record structural configuration variables inside client instance memory
+    localStorage.setItem("userClass", onboardingData.class);
+    localStorage.setItem("userSubject", onboardingData.subject);
     
-    // Step 1: Trigger structural glass card expansion
-    appCard.classList.add("dashboard-mode");
-
-    // Fetch matching chapters based on curriculum choices, fall back to Maths if missing
-    const chapters = syllabusData[sessionSetup.subject] || syllabusData["Mathematics"];
-
-    // Step 2: Build and compile HTML rows for each chapter element
-    let chapterRowsHTML = "";
-    chapters.forEach(ch => {
-        chapterRowsHTML += `
-            <div class="chapter-row">
-                <div class="chapter-info">
-                    <span class="chapter-num">Chapter ${ch.num}</span>
-                    <span class="chapter-name">${ch.name}</span>
-                </div>
-                <div class="modes-group">
-                    <button class="mode-card-btn flash" onclick="startMode('Flashcards', '${ch.name}')">📇 Cards</button>
-                    <button class="mode-card-btn quiz" onclick="startMode('Quiz', '${ch.name}')">📝 Quiz</button>
-                    <button class="mode-card-btn tutor" onclick="startMode('AI Tutor', '${ch.name}')">🤖 Tutor</button>
-                </div>
-            </div>
-        `;
-    });
-
-    // Step 3: Inject the complete compiled dashboard workspace interface
-    contentArea.innerHTML = `
-        <div class="dashboard-container">
-            <div class="dashboard-header">
-                <div>
-                    <h2>Study Workspace</h2>
-                    <p style="margin: 0;">Class ${sessionSetup.class} — ${sessionSetup.subject} Track</p>
-                </div>
-                <button class="back-btn" style="margin: 0;" onclick="exitDashboard()">⚙️ Leave Den</button>
-            </div>
-            
-            <div class="chapters-scroll-area">
-                ${chapterRowsHTML}
-            </div>
-        </div>
-    `;
+    // 2. Teleport location pathway out of onboarding hub root file straight into dashboard page root file
+    window.location.href = "dashboard.html";
 }
 
-/**
- * ROUTING: Mode Initialization Engine
- */
-function startMode(modeName, chapterName) {
-    alert(`Entering ${modeName} room for: ${chapterName}`);
-    // This is where your individual operational screens will link up later!
-}
-
-/**
- * ROUTING: De-escalate Dashboard view back to Onboarding sequence
- */
-function exitDashboard() {
-    const appCard = document.getElementById("app-card");
-    appCard.classList.remove("dashboard-mode");
-    renderStartScreen();
-}
-
-// System initialization trigger
+// Initializing onboarding boot execution sequence
 renderClassScreen();
