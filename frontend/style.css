@@ -1,0 +1,203 @@
+/* ==========================================================================
+   RESET & FOUNDATIONS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: #0b0f19;
+    color: #f8fafc;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ==========================================================================
+   AMBIENT BACKGROUND ORBS
+   ========================================================================== */
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+.orb-1 {
+    top: -10%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: #3b82f6;
+}
+.orb-2 {
+    bottom: -10%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: #6366f1;
+}
+
+/* ==========================================================================
+   THE FROSTED GLASS DESK CONTAINER
+   ========================================================================== */
+#app-card {
+    position: relative;
+    z-index: 10;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 48px 40px;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    background: linear-gradient(to right, #ffffff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+}
+
+/* ==========================================================================
+   ONBOARDING SELECTION BUTTONS
+   ========================================================================== */
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.option-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 14px;
+    cursor: pointer;
+    text-align: left;
+    padding-left: 24px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.option-btn:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(59, 130, 246, 0.5);
+    color: #ffffff;
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+}
+
+.option-btn:active {
+    transform: translateX(2px);
+}
+
+/* Back button subtle design */
+.back-btn {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-weight: 500;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+.back-btn:hover {
+    color: #f1f5f9;
+}
+
+/* ==========================================================================
+   THE PREMIUM 3D SHINING START BUTTON
+   ========================================================================== */
+.btn-3d-wrapper {
+    position: relative;
+    background: #1e3a8a; /* Deep structural base shadow color */
+    border-radius: 16px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    margin-top: 24px;
+    display: inline-block;
+    width: 100%;
+}
+
+/* The actual floating front face of the 3D button */
+.btn-3d-front {
+    display: block;
+    position: relative;
+    padding: 18px 40px;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: white;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    /* Moves the element upwards off its base to simulate physical height */
+    transform: translateY(-6px); 
+    transition: transform 150ms cubic-bezier(0.3, 0.7, 0.4, 1), filter 150ms;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(29, 78, 216, 0.3);
+}
+
+/* Hover State: Lift up higher and illuminate */
+.btn-3d-wrapper:hover .btn-3d-front {
+    transform: translateY(-8px);
+    filter: brightness(1.1);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.5), 
+                0 0 15px rgba(99, 102, 241, 0.6); /* Sparking neon halo aura */
+}
+
+/* Pressed State: Push downward flat into the structural base shadow */
+.btn-3d-wrapper:active .btn-3d-front {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(29, 78, 216, 0.4);
+}
+
+/* Seamless Continuous Reflection Sheen */
+.btn-3d-front::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-30deg);
+}
+
+.btn-3d-wrapper:hover .btn-3d-front::before {
+    left: 150%;
+    transition: left 0.8s ease-in-out;
+}
